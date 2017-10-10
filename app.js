@@ -12,7 +12,7 @@ Answer = require('./models/answers');
 Question = require('./models/questions');
 
 // connect mongoose 
-mongoose.connect('mongodb://localhost/geek-tools');
+mongoose.connect('mongodb://geektoolsuser:SimCityNo3@ds155424.mlab.com:55424/geektools');
 
 app.get('/', function(req, res){
     res.send('use api');
