@@ -1,40 +1,90 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+const path = require('path');
 const mongoose = require('mongoose');
+const config = require('./config/database');
+const bodyParser = require('body-parser');
+const Faq = require('./models/faq');
+const Profile = require('./models/profiles');
+const Example = require('./models/examples');
+
+
+mongoose.Promise = global.Promise;
+// Connects us to our database
+mongoose.connect(config.database);
+
+// Lets us know we're connected!
+mongoose.connection.on('connected', () => {
+    console.log('Connected to database ' + config.database)
+});
+
+// Lets us know we're having trouble connecting to the database!
+mongoose.connection.on('error', (err) => {
+    console.log('Something Went Wrong! ==> ' + err)
+});
 
 const app = express();
 
-app.use (cors());
+const port = 3000;
+
+/*//options for cors midddleware
+const options:cors.CorsOptions = {
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+    credentials: true,
+    methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+    origin: API_URL,
+    preflightContinue: false
+  };*/
+
+
+//CORS Middleware
+app.use(cors());
+
+// Body Parser Middleware
 app.use(bodyParser.json());
 
-Answer = require('./models/answers');
-Question = require('./models/questions');
+// Setting Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-// connect mongoose 
-mongoose.connect('mongodb://geektoolsuser:SimCityNo3@ds155424.mlab.com:55424/geektools');
-
-app.get('/', function(req, res){
-    res.send('use api');
+// Index Route
+app.get('/', (req, res) => {
+    res.send('Invalid Endpoint');
 });
 
-app.get('/api/answers', function(req, res){
-    Answer.getAnswers(function(err, answers){
-        if(err){
-            throw err;
-        }
-        res.json(answers);
+app.get('/faq', (req, res) => {
+    console.log('Grabbing all FAQ');
+    Faq.getFaq( (err, faq) => {
+    if(err) {
+        throw err;
+    }
+    res.json(faq);
     });
 });
 
-app.get('/api/questions', function(req, res){
-    Question.getQuestions(function(err, questions){
-        if(err){
-            throw err;
-        }
-        res.json(questions);
+app.get('/profile', (req, res) => {
+    console.log('Grabbing all Profiles');
+    Profile.getProfile( (err, profile) => {
+    if(err) {
+        throw err;
+    }
+    res.json(profile);
     });
 });
 
-app.listen(5000);
-console.log('running on port 5000!');
+app.get('/examples', (req, res) => {
+    console.log('Grabbing all Examples');
+    Example.getExamples( (err, example) => {
+    if(err) {
+        throw err;
+    }
+    res.json(example);
+    });
+});
+
+
+
+
+// Starting the Server
+app.listen(port, () => {
+    console.log('Server started on port ' + port);
+});
