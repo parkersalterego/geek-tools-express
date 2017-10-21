@@ -8,6 +8,7 @@ const Faqs = require('./models/faq');
 const Profile = require('./models/profiles');
 const Example = require('./models/examples');
 const Answer = require('./models/answers');
+const Code = require('./models/code');
 
 
 mongoose.Promise = global.Promise;
@@ -72,6 +73,46 @@ app.get('/answers/:_id', (req, res) => {
     });
 });
 
+app.get('/code', (req, res) => {
+    console.log('Grabbing all Code Examples');
+    Code.getCode( (err, code) => {
+    if(err) {
+        throw err;
+    }
+    res.json(code);
+    });
+});
+
+app.get('/code/:_id', (req, res) => {
+    console.log('Grabbing some Code Examples by ID');
+    Code.getCodeById(req.params._id, (err, code) => {
+    if(err) {
+        throw err;
+    }
+    res.json(code);
+    });
+});
+
+app.get('/examples', (req, res) => {
+    console.log('Grabbing all Examples');
+    Example.getExamples( (err, examples) => {
+    if(err) {
+        throw err;
+    }
+    res.json(examples);
+    });
+});
+
+app.get('/examples/:_id', (req, res) => {
+    console.log('Grabbing an Example by ID');
+    Example.getExampleById(req.params._id, (err, example) => {
+    if(err) {
+        throw err;
+    }
+    res.json(example);
+    });
+});
+
 app.get('/faq', (req, res) => {
     console.log('Grabbing all FAQ\'s');
     Faqs.getFaqs( (err, faqs) => {
@@ -111,26 +152,6 @@ app.get('/profile/:_id', (req, res) => {
         throw err;
     }
     res.json(profile);
-    });
-});
-
-app.get('/examples', (req, res) => {
-    console.log('Grabbing all Examples');
-    Example.getExamples( (err, examples) => {
-    if(err) {
-        throw err;
-    }
-    res.json(examples);
-    });
-});
-
-app.get('/examples/:_id', (req, res) => {
-    console.log('Grabbing an Example by ID');
-    Example.getExampleById(req.params._id, (err, example) => {
-    if(err) {
-        throw err;
-    }
-    res.json(example);
     });
 });
 
