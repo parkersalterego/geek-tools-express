@@ -20,7 +20,7 @@ module.exports.getAnswers = function(callback){
     Answer.find(callback);
 }
 
-module.exports.getFaqById = function(id, callback){
+module.exports.getAnswerById = function(id, callback){
     Answer.findById(id, callback);
 }
 

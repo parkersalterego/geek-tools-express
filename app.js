@@ -62,6 +62,16 @@ app.get('/answers', (req, res) => {
     });
 });
 
+app.get('/answers/:_id', (req, res) => {
+    console.log('Grabbing an FAQ by ID');
+    Answer.getAnswerById(req.params._id, (err, Answer) => {
+    if(err) {
+        throw err;
+    }
+    res.json(Answer);
+    });
+});
+
 app.get('/faq', (req, res) => {
     console.log('Grabbing all FAQ\'s');
     Faqs.getFaqs( (err, faqs) => {
@@ -94,9 +104,29 @@ app.get('/profile', (req, res) => {
     });
 });
 
+app.get('/profile/:_id', (req, res) => {
+    console.log('Grabbing a Profile by ID');
+    Profile.getProfileById(req.params._id, (err, profile) => {
+    if(err) {
+        throw err;
+    }
+    res.json(profile);
+    });
+});
+
 app.get('/examples', (req, res) => {
     console.log('Grabbing all Examples');
-    Example.getExamples( (err, example) => {
+    Example.getExamples( (err, examples) => {
+    if(err) {
+        throw err;
+    }
+    res.json(examples);
+    });
+});
+
+app.get('/examples/:_id', (req, res) => {
+    console.log('Grabbing an Example by ID');
+    Example.getExampleById(req.params._id, (err, example) => {
     if(err) {
         throw err;
     }

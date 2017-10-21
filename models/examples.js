@@ -8,6 +8,9 @@ const exampleSchema = new mongoose.Schema({
     },
     example: {
         type: String
+    },
+    tags: {
+        type: String
     }
 },
 {
@@ -18,5 +21,9 @@ const Examples = module.exports = mongoose.model('examples', exampleSchema);
 
 module.exports.getExamples = function(callback){
     Examples.find(callback);
+}
+
+module.exports.getExampleById = function(id, callback){
+    Examples.findById(id, callback);
 }
 

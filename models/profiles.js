@@ -38,3 +38,7 @@ module.exports.getProfile = function(callback){
     Profile.find(callback);
 }
 
+module.exports.getProfileById = function(id, callback){
+    Profile.findById(id, callback);
+}
+
