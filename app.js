@@ -4,12 +4,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const bodyParser = require('body-parser');
-const Faqs = require('./models/faq');
-const Profile = require('./models/profiles');
-const Example = require('./models/examples');
-const Answer = require('./models/answers');
-const Code = require('./models/code');
-
 
 mongoose.Promise = global.Promise;
 // Connects us to our database
@@ -26,6 +20,14 @@ mongoose.connection.on('error', (err) => {
 });
 
 const app = express();
+
+// Bringing in our routes
+const answers = require('./routes/answers');
+const code = require('./routes/code');
+const examples = require('./routes/examples');
+const faq = require('./routes/faq');
+const profiles = require('./routes/profile');
+
 
 const port = 3000;
 
@@ -48,115 +50,17 @@ app.use(bodyParser.json());
 // Setting Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Using our routes
+app.use('/answers', answers);
+app.use('/code', code);
+app.use('/examples', examples);
+app.use('/faq', faq);
+app.use('/profiles', profiles);
+
 // Index Route
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
-
-app.get('/answers', (req, res) => {
-    console.log('Grabbing all Answers');
-    Answer.getAnswers( (err, answers) => {
-    if(err) {
-        throw err;
-    }
-    res.json(answers);
-    });
-});
-
-app.get('/answers/:_id', (req, res) => {
-    console.log('Grabbing an FAQ by ID');
-    Answer.getAnswerById(req.params._id, (err, Answer) => {
-    if(err) {
-        throw err;
-    }
-    res.json(Answer);
-    });
-});
-
-app.get('/code', (req, res) => {
-    console.log('Grabbing all Code Examples');
-    Code.getCode( (err, code) => {
-    if(err) {
-        throw err;
-    }
-    res.json(code);
-    });
-});
-
-app.get('/code/:_id', (req, res) => {
-    console.log('Grabbing some Code Examples by ID');
-    Code.getCodeById(req.params._id, (err, code) => {
-    if(err) {
-        throw err;
-    }
-    res.json(code);
-    });
-});
-
-app.get('/examples', (req, res) => {
-    console.log('Grabbing all Examples');
-    Example.getExamples( (err, examples) => {
-    if(err) {
-        throw err;
-    }
-    res.json(examples);
-    });
-});
-
-app.get('/examples/:_id', (req, res) => {
-    console.log('Grabbing an Example by ID');
-    Example.getExampleById(req.params._id, (err, example) => {
-    if(err) {
-        throw err;
-    }
-    res.json(example);
-    });
-});
-
-app.get('/faq', (req, res) => {
-    console.log('Grabbing all FAQ\'s');
-    Faqs.getFaqs( (err, faqs) => {
-    if(err) {
-        throw err;
-    }
-    res.json(faqs);
-    });
-});
-
-app.get('/faq/:_id', (req, res) => {
-    console.log('Grabbing an FAQ by ID');
-    Faqs.getFaqById(req.params._id, (err, faq) => {
-    if(err) {
-        throw err;
-    }
-    res.json(faq);
-    });
-});
-
-
-
-app.get('/profile', (req, res) => {
-    console.log('Grabbing all Profiles');
-    Profile.getProfile( (err, profile) => {
-    if(err) {
-        throw err;
-    }
-    res.json(profile);
-    });
-});
-
-app.get('/profile/:_id', (req, res) => {
-    console.log('Grabbing a Profile by ID');
-    Profile.getProfileById(req.params._id, (err, profile) => {
-    if(err) {
-        throw err;
-    }
-    res.json(profile);
-    });
-});
-
-
-
 
 // Starting the Server
 app.listen(port, () => {
