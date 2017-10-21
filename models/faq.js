@@ -16,7 +16,15 @@ const faqSchema = new mongoose.Schema({
 
 const Faq = module.exports = mongoose.model('faq', faqSchema);
 
-module.exports.getFaq = function(callback){
+module.exports.getFaqs = function(callback){
     Faq.find(callback);
+}
+
+module.exports.getFaqById = function(id, callback){
+    Faq.findById(id, callback);
+}
+
+module.exports.getFaqByQuestion = function(id, callback){
+    Faq.findByName(question, callback);
 }
 

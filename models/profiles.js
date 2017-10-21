@@ -29,12 +29,16 @@ const profileSchema = new mongoose.Schema({
     }
 },
 {
-    collection: 'profile'
+    collection: 'profiles'
 });
 
 const Profile = module.exports = mongoose.model('profile', profileSchema);
 
 module.exports.getProfile = function(callback){
     Profile.find(callback);
+}
+
+module.exports.getProfileById = function(id, callback){
+    Profile.findById(id, callback);
 }
 
