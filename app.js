@@ -4,9 +4,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const bodyParser = require('body-parser');
-const Faq = require('./models/faq');
+const Faqs = require('./models/faq');
 const Profile = require('./models/profiles');
 const Example = require('./models/examples');
+const Answer = require('./models/answers');
 
 
 mongoose.Promise = global.Promise;
@@ -51,15 +52,37 @@ app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
 
+app.get('/answers', (req, res) => {
+    console.log('Grabbing all Answers');
+    Answer.getAnswers( (err, answers) => {
+    if(err) {
+        throw err;
+    }
+    res.json(answers);
+    });
+});
+
 app.get('/faq', (req, res) => {
-    console.log('Grabbing all FAQ');
-    Faq.getFaq( (err, faq) => {
+    console.log('Grabbing all FAQ\'s');
+    Faqs.getFaqs( (err, faqs) => {
+    if(err) {
+        throw err;
+    }
+    res.json(faqs);
+    });
+});
+
+app.get('/faq/:_id', (req, res) => {
+    console.log('Grabbing an FAQ by ID');
+    Faqs.getFaqById(req.params._id, (err, faq) => {
     if(err) {
         throw err;
     }
     res.json(faq);
     });
 });
+
+
 
 app.get('/profile', (req, res) => {
     console.log('Grabbing all Profiles');

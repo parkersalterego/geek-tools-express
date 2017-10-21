@@ -1,4 +1,7 @@
 module.exports = {
-    database: 'mongodb://localhost:27017/geektools'
-    // database: 'mongodb://geektoolsuser:SimCityNo3@ds155424.mlab.com:55424/geektools'
+    // Local Machine
+    // database: 'mongodb://localhost:27017/geektest'
+
+    // Mlab Connection 
+    database: 'mongodb://geektoolsuser:SimCityNo3@ds155424.mlab.com:55424/geektools'
 }

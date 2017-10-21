@@ -29,7 +29,7 @@ const profileSchema = new mongoose.Schema({
     }
 },
 {
-    collection: 'profile'
+    collection: 'profiles'
 });
 
 const Profile = module.exports = mongoose.model('profile', profileSchema);
