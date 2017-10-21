@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('../config/database');
 
 // User Schema
-const profileSchema = new mongoose.Schema({
+const codeSchema = new mongoose.Schema({
     language: {
         type: String
     },
@@ -32,7 +32,7 @@ const profileSchema = new mongoose.Schema({
     collection: 'code'
 });
 
-const Code = module.exports = mongoose.model('code', profileSchema);
+const Code = module.exports = mongoose.model('code', codeSchema);
 
 module.exports.getCode = function(callback){
     Code.find(callback);
