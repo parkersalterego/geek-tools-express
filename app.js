@@ -26,7 +26,7 @@ const answers = require('./routes/answers');
 const code = require('./routes/code');
 const examples = require('./routes/examples');
 const faq = require('./routes/faq');
-const profiles = require('./routes/profile');
+const profile = require('./routes/profile');
 
 
 const port = 3000;
@@ -55,7 +55,7 @@ app.use('/answers', answers);
 app.use('/code', code);
 app.use('/examples', examples);
 app.use('/faq', faq);
-app.use('/profiles', profiles);
+app.use('/profile', profile);
 
 // Index Route
 app.get('/', (req, res) => {
