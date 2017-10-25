@@ -38,6 +38,14 @@ module.exports.getCode = function(callback){
     Code.find(callback);
 }
 
+module.exports.getHtml = function(callback) {
+    Code.find({"language" : "html"}, callback);
+}
+
+module.exports.getCss = function(callback) {
+    Code.find({"language" : "css"}, callback);
+}
+
 module.exports.getCodeById = function(id, callback){
     Code.findById(id, callback);
 }
