@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+var Schema = mongoose.Schema;
 
 // User Schema
 const faqSchema = new mongoose.Schema({
@@ -7,7 +8,8 @@ const faqSchema = new mongoose.Schema({
         type: String
     },
     answer: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref: 'answers'
     }
 },
 {
@@ -17,8 +19,11 @@ const faqSchema = new mongoose.Schema({
 const Faq = module.exports = mongoose.model('faq', faqSchema);
 
 module.exports.getFaqs = function(callback){
-    Faq.find(callback);
-}
+    Faq.find(callback).populate('answer').
+    exec(function (err, story) {
+        if (err) return handleError(err);
+    }
+)};
 
 module.exports.getFaqById = function(id, callback){
     Faq.findById(id, callback);

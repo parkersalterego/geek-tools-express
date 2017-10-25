@@ -55,7 +55,8 @@ app.use('/answers', answers);
 app.use('/code', code);
 app.use('/examples', examples);
 app.use('/faq', faq);
-app.use('/profile', profile);
+app.use('/profile', profiles);
+
 
 // Index Route
 app.get('/', (req, res) => {
