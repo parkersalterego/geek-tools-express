@@ -32,8 +32,7 @@ const profileSchema = new mongoose.Schema({
     collection: 'profiles'
 });
 
-const Profile = module.exports = mongoose.model('profile', profileSchema);
-
+const Profile = module.exports = mongoose.model('profiles', profileSchema);
 module.exports.getProfile = function(callback){
     Profile.find(callback);
 }
