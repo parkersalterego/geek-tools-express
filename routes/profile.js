@@ -3,7 +3,7 @@ const router = express.Router();
 const config = require('../config/database');
 const Profile = require('../models/profiles');
 
-router.get('/profile', (req, res) => {
+router.get('/', (req, res) => {
     console.log('Grabbing all Profiles');
     Profile.getProfile( (err, profile) => {
     if(err) {
@@ -13,7 +13,7 @@ router.get('/profile', (req, res) => {
     });
 });
 
-router.get('/profile/:_id', (req, res) => {
+router.get('/:_id', (req, res) => {
     console.log('Grabbing a Profile by ID');
     Profile.getProfileById(req.params._id, (err, profile) => {
     if(err) {
